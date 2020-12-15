@@ -56,6 +56,21 @@ class Example(QMainWindow):
             canMove = False
         return canMove
 
+    def canMoveUp(self) -> bool:
+        canMove = True
+
+        if self.characterY - self.moveSize <= 0:
+            canMove = False
+        return canMove
+
+    def canMoveDown(self) -> bool:
+        canMove = True
+
+        if self.characterY + self.moveSize >= self.windowHeight - self.characterHeight:
+            canMove = False
+        return canMove
+
+
     def initBubble(self):
         self.bubble = QLabel(self)
         self.bubble.setStyleSheet("image: url(bubble.jpg)")
@@ -91,11 +106,11 @@ class Example(QMainWindow):
             self.character.setStyleSheet("image: url(bbobble.png)")
             self.side='r'
 
-        elif(key == Qt.Key_Up):
+        elif(key == Qt.Key_Up and self.canMoveUp()):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
-            
-        elif (key == Qt.Key_Down):
+
+        elif (key == Qt.Key_Down and self.canMoveDown()):
             self.characterY += self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
