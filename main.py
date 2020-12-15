@@ -94,23 +94,23 @@ class Example(QMainWindow):
 
     def keyPressEvent(self, e):
         key = e.key()
-        if(key == Qt.Key_Left and self.canMoveLeft()):
+        if(key == Qt.Key_Left or key == Qt.Key_A and self.canMoveLeft()):
             self.characterX -= self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble_left.png)")
             self.side='l'
 
-        elif(key == Qt.Key_Right and self.canMoveRight()):
+        elif(key == Qt.Key_Right or key == Qt.Key_D and self.canMoveRight()):
             self.characterX += self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble.png)")
             self.side='r'
 
-        elif(key == Qt.Key_Up and self.canMoveUp()):
+        elif(key == Qt.Key_Up or key == Qt.Key_W and self.canMoveUp()):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
-        elif (key == Qt.Key_Down and self.canMoveDown()):
+        elif (key == Qt.Key_Down or key == Qt.Key_S and self.canMoveDown()):
             self.characterY += self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
