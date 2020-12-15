@@ -66,16 +66,7 @@ class Example(QMainWindow):
         self.bubble.show()
 
 
-    # def fire(self, b, x, y):
-    #     while True:
-    #         if self.side == 'r':
-    #             x = x + 20
-    #             b.move(x, y)
-    #             if x >= self.windowWidth - self.b:
-    #                 b.resize(0,0)
-    #                 b = None
-    #
-    #     sleep(0.05)
+
 
     def keyPressEvent(self, e):
         key = e.key()
