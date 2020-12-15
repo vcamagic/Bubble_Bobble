@@ -95,13 +95,6 @@ class Example(QMainWindow):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
-        # if(key == Qt.Key_Space):
-        #     thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY])
-        #     thread.daemon = True
-        #     thread.start()
-        #     self.initBubble()
-
-
 
 
 if __name__ == '__main__':
