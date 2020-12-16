@@ -4,19 +4,20 @@ from PyQt5.QtGui import QPixmap, QTransform
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer
 from threading import Thread
+from time import sleep
+
 
 class Example(QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         self.initUI()
 
-
     def initUI(self):
         self.initWindow()
         self.setBackground()
         self.initCharacter()
-        self.moveSize=10
-        self.jumpSize=10
+        self.moveSize = 10
+        self.jumpSize = 10
         self.show()
 
     def initWindow(self):
@@ -33,14 +34,15 @@ class Example(QMainWindow):
 
     def initCharacter(self):
         self.side = 'r'
-        self.characterWidth=int(45)
-        self.characterHeight= int(40)
-        self.character=QLabel(self)
-        self.characterX=int(self.windowWidth/2)-int(self.characterWidth/2)
-        self.characterY=int(self.windowHeight-110)
+        self.characterWidth = int(45)
+        self.characterHeight = int(40)
+        self.character = QLabel(self)
+        self.characterX = int(self.windowWidth / 2) - int(self.characterWidth / 2)
+        self.characterY = int(self.windowHeight - 110)
         self.character.setStyleSheet("image: url(bbobble.png)")
-        self.character.resize(self.characterWidth,self.characterHeight)
-        self.character.move(self.characterX,self.characterY)
+        self.character.resize(self.characterWidth, self.characterHeight)
+        self.character.move(self.characterX, self.characterY)
+        self.ableToFire = True
 
     def canMoveLeft(self) -> bool:
         canMove = True
@@ -70,34 +72,49 @@ class Example(QMainWindow):
             canMove = False
         return canMove
 
-
     def initBubble(self):
         self.bubble = QLabel(self)
-        self.bubble.setStyleSheet("image: url(bubble.jpg)")
-        self.bubble.resize(10,10)
-        self.bubbleX = int(self.characterX + self.characterWidth/3 - 1)
-        self.bubbleY = int(self.characterY - 10 + 4)
-        self.bubble.move(self.bubbleX,self.bubbleY)
+        self.bubble.setStyleSheet("image: url(circle31.png)")
+        self.bubble.resize(10, 10)
+        self.bubbleY = self.characterY + 7
+        if (self.side == 'r'):
+            self.bubbleX = self.characterX + self.characterWidth / 2 + 9
+        else:
+            self.bubbleX = self.characterX - 1
+
+        self.bubble.move(self.bubbleX, self.bubbleY)
+        self.Fiering = False
         self.bubble.show()
 
-
-
+    def fire(self, b, x, y):
+        while True:
+            if self.side == 'r':
+                x = x + 10
+            else:
+                x = x - 10
+            b.move(x, y)
+            if (x <= 0 or x >= self.windowWidth):
+                b.resize(0, 0)
+                b = None
+                self.ableToFire = True
+                break
+            sleep(0.02)
 
     def keyPressEvent(self, e):
         key = e.key()
-        if(key == Qt.Key_Left and self.canMoveLeft()):
+        if (key == Qt.Key_Left and self.canMoveLeft()):
             self.characterX -= self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble_left.png)")
-            self.side='l'
+            self.side = 'l'
 
-        elif(key == Qt.Key_Right and self.canMoveRight()):
+        elif (key == Qt.Key_Right and self.canMoveRight()):
             self.characterX += self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble.png)")
-            self.side='r'
+            self.side = 'r'
 
-        elif(key == Qt.Key_Up and self.canMoveUp()):
+        elif (key == Qt.Key_Up and self.canMoveUp()):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
@@ -105,6 +122,16 @@ class Example(QMainWindow):
             self.characterY += self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
+        elif (key == Qt.Key_Space):
+            try:
+                if self.ableToFire:
+                    self.Fiering = True
+                    self.ableToFire = False
+                    self.initBubble()
+                    thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY], daemon=True)
+                    thread.start()
+            except:
+                self.Fiering = False
 
 
 if __name__ == '__main__':
