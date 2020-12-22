@@ -21,8 +21,8 @@ class Example(QMainWindow):
         self.show()
 
     def initWindow(self):
-        self.windowWidth = int(950)
-        self.windowHeight = int(550)
+        self.windowWidth = int(500)
+        self.windowHeight = int(350)
         self.setFixedSize(self.windowWidth, self.windowHeight)
         self.setWindowTitle("Bubble Bobble")
         self.setWindowIcon(QIcon('bbobble.png'))
@@ -86,12 +86,12 @@ class Example(QMainWindow):
         self.Fiering = False
         self.bubble.show()
 
-    def fire(self, b, x, y):
+    def fire(self, b, x, y, s):
         while True:
-            if self.side == 'r':
-                x = x + 10
+            if s == 'r':
+                x = x + 5
             else:
-                x = x - 10
+                x = x - 5
             b.move(x, y)
             if (x <= 0 or x >= self.windowWidth):
                 b.resize(0, 0)
@@ -103,12 +103,14 @@ class Example(QMainWindow):
     def keyPressEvent(self, e):
         key = e.key()
         if (key == Qt.Key_Left and self.canMoveLeft()):
+            self.Moving = True
             self.characterX -= self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble_left.png)")
             self.side = 'l'
 
         elif (key == Qt.Key_Right and self.canMoveRight()):
+            self.Moving = True
             self.characterX += self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble.png)")
@@ -127,8 +129,9 @@ class Example(QMainWindow):
                 if self.ableToFire:
                     self.Fiering = True
                     self.ableToFire = False
+                    self.fireSide = self.side
                     self.initBubble()
-                    thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY], daemon=True)
+                    thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY, self.fireSide], daemon=True)
                     thread.start()
             except:
                 self.Fiering = False
