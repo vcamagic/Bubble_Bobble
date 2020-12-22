@@ -21,8 +21,8 @@ class Example(QMainWindow):
         self.show()
 
     def initWindow(self):
-        self.windowWidth = int(500)
-        self.windowHeight = int(350)
+        self.windowWidth = int(800)
+        self.windowHeight = int(620)
         self.setFixedSize(self.windowWidth, self.windowHeight)
         self.setWindowTitle("Bubble Bobble")
         self.setWindowIcon(QIcon('bbobble.png'))
@@ -34,8 +34,8 @@ class Example(QMainWindow):
 
     def initCharacter(self):
         self.side = 'r'
-        self.characterWidth = int(45)
-        self.characterHeight = int(40)
+        self.characterWidth = int(60)
+        self.characterHeight = int(50)
         self.character = QLabel(self)
         self.characterX = int(self.windowWidth / 2) - int(self.characterWidth / 2)
         self.characterY = int(self.windowHeight - 110)
@@ -47,35 +47,35 @@ class Example(QMainWindow):
     def canMoveLeft(self) -> bool:
         canMove = True
 
-        if self.characterX - self.moveSize <= 0:
+        if self.characterX - self.moveSize <=30:
             canMove = False
         return canMove
 
     def canMoveRight(self) -> bool:
         canMove = True
 
-        if self.characterX + self.moveSize >= self.windowWidth - self.characterWidth:
+        if self.characterX + self.moveSize >= self.windowWidth-30 - self.characterWidth:
             canMove = False
         return canMove
 
     def canMoveUp(self) -> bool:
         canMove = True
 
-        if self.characterY - self.moveSize <= 0:
+        if self.characterY - self.moveSize <= 20:
             canMove = False
         return canMove
 
     def canMoveDown(self) -> bool:
         canMove = True
 
-        if self.characterY + self.moveSize >= self.windowHeight - self.characterHeight:
+        if self.characterY + self.moveSize >= self.windowHeight-20 - self.characterHeight:
             canMove = False
         return canMove
 
     def initBubble(self):
         self.bubble = QLabel(self)
         self.bubble.setStyleSheet("image: url(circle31.png)")
-        self.bubble.resize(10, 10)
+        self.bubble.resize(25, 25)
         self.bubbleY = self.characterY + 7
         if (self.side == 'r'):
             self.bubbleX = self.characterX + self.characterWidth / 2 + 9
@@ -93,7 +93,7 @@ class Example(QMainWindow):
             else:
                 x = x - 5
             b.move(x, y)
-            if (x <= 0 or x >= self.windowWidth):
+            if (x <= 40 or x >= self.windowWidth-67):
                 b.resize(0, 0)
                 b = None
                 self.ableToFire = True
