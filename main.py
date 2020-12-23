@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView, QPushButton, QAction, qApp
 from PyQt5.QtGui import QPixmap, QTransform
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer
@@ -8,6 +8,7 @@ from time import sleep
 
 
 class Example(QMainWindow):
+    EXIT_CODE_REBOOT = -2
     def __init__(self):
         super(Example, self).__init__()
         self.initUI()
@@ -16,6 +17,7 @@ class Example(QMainWindow):
         self.initWindow()
         self.setBackground()
         self.initCharacter()
+        self.initMenu()
         self.moveSize = 10
         self.jumpSize = 10
         #button1 = QPushButton('1 Player', self)
@@ -154,8 +156,32 @@ class Example(QMainWindow):
                 self.Fiering = False
 
 
+    def initMenu(self):
+        self.menu = self.menuBar()
+
+        actionNew = QAction("New",self)
+        actionNew.setShortcut("F1")
+        actionNew.setStatusTip("New game")
+        actionNew.triggered.connect(self.newGame)
+
+        exitAct = QAction('&Exit', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.setStatusTip('Exit application')
+        exitAct.triggered.connect(qApp.quit)
+
+        fileMenu = self.menu.addMenu("File")
+        fileMenu.addAction(actionNew)
+        fileMenu.addAction(exitAct)
+
+    def newGame(self):
+        qApp.exit(self.EXIT_CODE_REBOOT)
+
+
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    example = Example()
-    example.show()
-    sys.exit(app.exec_())
+    currentExitCode = Example.EXIT_CODE_REBOOT
+    while currentExitCode == Example.EXIT_CODE_REBOOT:
+        app = QApplication(sys.argv)
+        example = Example()
+        example.show()
+        currentExitCode = app.exec_()
+        app = None
