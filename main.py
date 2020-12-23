@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView, QPushButton
 from PyQt5.QtGui import QPixmap, QTransform
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer
@@ -18,7 +18,25 @@ class Example(QMainWindow):
         self.initCharacter()
         self.moveSize = 10
         self.jumpSize = 10
+        #button1 = QPushButton('1 Player', self)
+        #button1.setGeometry(0,0,70,27)
+        #button1.clicked.connect(self.onePlayerGameMode)
+
+        #button2 = QPushButton('2 Player', self)
+        #button2.setGeometry(70,0,70,27)
+        #button2.clicked.connect(self.twoPlayerGameMode)
+
+        #button3 = QPushButton('Tournament', self)
+        #button3.setGeometry(140,0,70,27)
+       # button3.clicked.connect(self.tournamentGameMode)
         self.show()
+
+    def onePlayerGameMode(self):
+        print('1 Player')
+    def twoPlayerGameMode(self):
+        print('2 Player')
+    def tournamentGameMode(self):
+        print('Tournament')
 
     def initWindow(self):
         self.windowWidth = int(800)
@@ -99,28 +117,27 @@ class Example(QMainWindow):
                 self.ableToFire = True
                 break
             sleep(0.02)
-
     def keyPressEvent(self, e):
         key = e.key()
-        if (key == Qt.Key_Left and self.canMoveLeft()):
+        if (key == Qt.Key_Left and self.canMoveLeft() or key==Qt.Key_A and self.canMoveLeft()):
             self.Moving = True
             self.characterX -= self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble_left.png)")
             self.side = 'l'
 
-        elif (key == Qt.Key_Right and self.canMoveRight()):
+        elif (key == Qt.Key_Right and self.canMoveRight()  or key==Qt.Key_D and self.canMoveRight()):
             self.Moving = True
             self.characterX += self.moveSize
             self.character.move(self.characterX, self.characterY)
             self.character.setStyleSheet("image: url(bbobble.png)")
             self.side = 'r'
 
-        elif (key == Qt.Key_Up and self.canMoveUp()):
+        elif (key == Qt.Key_Up and self.canMoveUp() or key==Qt.Key_W and self.canMoveUp()):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
-        elif (key == Qt.Key_Down and self.canMoveDown()):
+        elif (key == Qt.Key_Down and self.canMoveDown() or key==Qt.Key_S and self.canMoveDown()):
             self.characterY += self.jumpSize
             self.character.move(self.characterX, self.characterY)
 
