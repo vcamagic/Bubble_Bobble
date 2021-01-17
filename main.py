@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView, QPushButton, QAction, qApp
-from PyQt5.QtGui import QPixmap, QTransform
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QGraphicsView, QPushButton, QAction, qApp, \
+    QStackedWidget, QVBoxLayout
+from PyQt5.QtGui import QPixmap, QTransform, QPainter, QImage
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer
+from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer, QSize
 from threading import Thread
 from time import sleep
 
@@ -13,32 +14,14 @@ class Example(QMainWindow):
         super(Example, self).__init__()
         self.initUI()
 
+
     def initUI(self):
         self.initWindow()
         self.setBackground()
         self.initCharacter()
-        self.initMenu()
         self.moveSize = 10
-        self.jumpSize = 10
-        #button1 = QPushButton('1 Player', self)
-        #button1.setGeometry(0,0,70,27)
-        #button1.clicked.connect(self.onePlayerGameMode)
-
-        #button2 = QPushButton('2 Player', self)
-        #button2.setGeometry(70,0,70,27)
-        #button2.clicked.connect(self.twoPlayerGameMode)
-
-        #button3 = QPushButton('Tournament', self)
-        #button3.setGeometry(140,0,70,27)
-       # button3.clicked.connect(self.tournamentGameMode)
+        self.jumpSize = 20
         self.show()
-
-    def onePlayerGameMode(self):
-        print('1 Player')
-    def twoPlayerGameMode(self):
-        print('2 Player')
-    def tournamentGameMode(self):
-        print('Tournament')
 
     def initWindow(self):
         self.windowWidth = int(800)
@@ -106,6 +89,15 @@ class Example(QMainWindow):
         self.Fiering = False
         self.bubble.show()
 
+    def jump(self):
+        jumpCnt = 0
+        while jumpCnt <= self.jumpSize:
+            self.characterY -= 1
+            jumpCnt += 1
+            self.character.move(self.characterX, self.characterY)
+            sleep(0.01)
+
+
     def fire(self, b, x, y, s):
         while True:
             if s == 'r':
@@ -136,8 +128,10 @@ class Example(QMainWindow):
             self.side = 'r'
 
         elif (key == Qt.Key_Up and self.canMoveUp() or key==Qt.Key_W and self.canMoveUp()):
-            self.characterY -= self.jumpSize
-            self.character.move(self.characterX, self.characterY)
+            threadJump = Thread(target=self.jump, daemon=True)
+            threadJump.start()
+           # self.characterY -= self.jumpSize
+            #self.character.move(self.characterX, self.characterY)
 
         elif (key == Qt.Key_Down and self.canMoveDown() or key==Qt.Key_S and self.canMoveDown()):
             self.characterY += self.jumpSize
@@ -156,32 +150,15 @@ class Example(QMainWindow):
                 self.Fiering = False
 
 
-    def initMenu(self):
-        self.menu = self.menuBar()
-
-        actionNew = QAction("New",self)
-        actionNew.setShortcut("F1")
-        actionNew.setStatusTip("New game")
-        actionNew.triggered.connect(self.newGame)
-
-        exitAct = QAction('&Exit', self)
-        exitAct.setShortcut('Ctrl+Q')
-        exitAct.setStatusTip('Exit application')
-        exitAct.triggered.connect(qApp.quit)
-
-        fileMenu = self.menu.addMenu("File")
-        fileMenu.addAction(actionNew)
-        fileMenu.addAction(exitAct)
-
     def newGame(self):
         qApp.exit(self.EXIT_CODE_REBOOT)
 
+    def initScore(self):
 
-if __name__ == '__main__':
-    currentExitCode = Example.EXIT_CODE_REBOOT
-    while currentExitCode == Example.EXIT_CODE_REBOOT:
-        app = QApplication(sys.argv)
-        example = Example()
-        example.show()
-        currentExitCode = app.exec_()
-        app = None
+        self.life = QLabel(self)
+        self.life.resize(30,30)
+        self.life.setStyleSheet("image: url(heart.png)")
+        self.life.show()
+
+
+
