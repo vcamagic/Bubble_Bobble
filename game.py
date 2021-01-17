@@ -7,12 +7,30 @@ from PyQt5.QtCore import QCoreApplication, Qt, QBasicTimer, QSize
 from threading import Thread
 from time import sleep
 
+#top left x1,y1 bottom right x2,y2
+Blocks = [
+    [51, 593, 750, 620],
+    [125, 480, 674, 508],
+    [201, 368, 599, 394],
+    [276, 256, 524, 282]
+]
 
 class Example(QMainWindow):
     EXIT_CODE_REBOOT = -2
     def __init__(self):
         super(Example, self).__init__()
         self.initUI()
+        #self.positionThread = Thread(target=self.checkPosition, daemon=True)
+
+    #def onBlock(self) -> bool:
+       #if not self.Jumping:
+           #if self.characterY not in [593, 480, 368, 256]:
+               # self.charFalling = True
+           #else:
+
+
+    #def checkPosition(self):
+        #while True:
 
 
     def initUI(self):
@@ -20,19 +38,19 @@ class Example(QMainWindow):
         self.setBackground()
         self.initCharacter()
         self.moveSize = 10
-        self.jumpSize = 20
+        self.jumpSize = 5
         self.show()
 
     def initWindow(self):
         self.windowWidth = int(800)
-        self.windowHeight = int(620)
+        self.windowHeight = int(640)
         self.setFixedSize(self.windowWidth, self.windowHeight)
         self.setWindowTitle("Bubble Bobble")
         self.setWindowIcon(QIcon('bbobble.png'))
 
     def setBackground(self):
         self.bacground = QLabel(self)
-        self.bacground.setStyleSheet("background-image: url(bckgrnd.jpg)")
+        self.bacground.setStyleSheet("background-image: url(level.jpg)")
         self.bacground.resize(self.windowWidth, self.windowHeight - 20)
 
     def initCharacter(self):
@@ -41,11 +59,14 @@ class Example(QMainWindow):
         self.characterHeight = int(50)
         self.character = QLabel(self)
         self.characterX = int(self.windowWidth / 2) - int(self.characterWidth / 2)
-        self.characterY = int(self.windowHeight - 110)
+        self.characterY = int(self.windowHeight - 85)
+        self.charFalling = False
         self.character.setStyleSheet("image: url(bbobble.png)")
         self.character.resize(self.characterWidth, self.characterHeight)
         self.character.move(self.characterX, self.characterY)
+
         self.ableToFire = True
+        self.Jumping = False
 
     def canMoveLeft(self) -> bool:
         canMove = True
@@ -71,7 +92,7 @@ class Example(QMainWindow):
     def canMoveDown(self) -> bool:
         canMove = True
 
-        if self.characterY + self.moveSize >= self.windowHeight-20 - self.characterHeight:
+        if self.characterY + self.moveSize >= self.windowHeight-30 - self.characterHeight:
             canMove = False
         return canMove
 
@@ -89,14 +110,13 @@ class Example(QMainWindow):
         self.Fiering = False
         self.bubble.show()
 
-    def jump(self):
-        jumpCnt = 0
-        while jumpCnt <= self.jumpSize:
+    def jump(self, y):
+        self.Jumping = True
+        while self.characterY >= y-self.jumpSize-self.characterHeight-60:
             self.characterY -= 1
-            jumpCnt += 1
             self.character.move(self.characterX, self.characterY)
-            sleep(0.01)
-
+            sleep(0.001)
+        self.Jumping = False
 
     def fire(self, b, x, y, s):
         while True:
@@ -127,14 +147,14 @@ class Example(QMainWindow):
             self.character.setStyleSheet("image: url(bbobble.png)")
             self.side = 'r'
 
-        elif (key == Qt.Key_Up and self.canMoveUp() or key==Qt.Key_W and self.canMoveUp()):
-            threadJump = Thread(target=self.jump, daemon=True)
+        elif (key == Qt.Key_Up and self.canMoveUp() and not self.Jumping or key==Qt.Key_W and self.canMoveUp()):
+            threadJump = Thread(target=self.jump,args=[self.characterY] ,daemon=True)
             threadJump.start()
            # self.characterY -= self.jumpSize
             #self.character.move(self.characterX, self.characterY)
 
         elif (key == Qt.Key_Down and self.canMoveDown() or key==Qt.Key_S and self.canMoveDown()):
-            self.characterY += self.jumpSize
+            self.characterY += self.moveSize
             self.character.move(self.characterX, self.characterY)
 
         elif (key == Qt.Key_Space):
