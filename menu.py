@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel, QWidget, QPushButton, QApplication
-import main
+import game
 
 class Menu(QWidget):
 
@@ -56,7 +56,7 @@ class Menu(QWidget):
 
     def spPlay(self):
         self.close()
-        self.open = main.Example()
+        self.open = game.Example()
         self.open.show()
 
     def mpPlay(self):
@@ -69,6 +69,6 @@ class Menu(QWidget):
         self.close()
 
 if __name__ == "__main__":
-    app= QApplication(sys.argv)
+    app = QApplication(sys.argv)
     menu = Menu()
     sys.exit(app.exec_())
