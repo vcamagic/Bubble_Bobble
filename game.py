@@ -8,18 +8,19 @@ from threading import Thread
 from time import sleep
 
 #top left x1,y1 bottom right x2,y2
-Blockss = [
-    [51, 593, 750, 620],
-    [125, 480, 674, 508],
-    [201, 368, 599, 394],
-    [276, 256, 524, 282]
-]
+#Blockss = [
+    #[51, 593, 750, 620],
+    #[125, 480, 674, 508],
+   # [201, 368, 599, 394],
+   # [276, 256, 524, 282]
+#]
 
+#y, x1, x2
 Blocks = [
     [552, 51, 750],
-    [442, 100, 649],
-    [332, 176, 574],
-    [218, 251, 499]
+    [442, 70, 649],
+    [332, 160, 574],
+    [218, 235, 499]
 ]
 
 class Example(QMainWindow):
@@ -78,7 +79,7 @@ class Example(QMainWindow):
     def canMoveLeft(self) -> bool:
         canMove = True
 
-        if self.characterX - self.moveSize <=30:
+        if self.characterX - self.moveSize <= 45:
             canMove = False
         return canMove
 
@@ -117,24 +118,41 @@ class Example(QMainWindow):
         self.Fiering = False
         self.bubble.show()
 
-   # [552, 51, 750],
-   #[442, 100, 649],
-    #[332, 176, 574],
-    #[218, 251, 499]
+
+#[552, 51, 750],
+#[442, 70, 649],
+#[332, 160, 574],
+#[218, 235, 499]
 
     def fix(self):
-        if self.characterX >= 100 and self.characterX <= 649 and self.characterY > 332:
+        if self.characterX >= 70 and self.characterX <= 649 and self.characterY > 332:
             self.characterY = 442
             self.character.move(self.characterX, self.characterY)
-        elif self.characterX >= 176 and self.characterX <= 574 and self.characterY > 218:
+        elif self.characterX >= 160 and self.characterX <= 574 and self.characterY > 218:
             self.characterY = 332
             self.character.move(self.characterX, self.characterY)
-        elif self.characterX >= 251 and self.characterX <= 499 and self.characterY <= 218:
+        elif self.characterX >= 235 and self.characterX <= 499 and self.characterY <= 218:
             self.characterY = 218
             self.character.move(self.characterX, self.characterY)
         else:
-            self.characterY = 552
+           # self.characterY = 442
+           # self.character.move(self.characterX, self.characterY)
+                self.characterY = 552
+                self.character.move(self.characterX, self.characterY)
+
+    def stayPlatform(self, y):
+        self.Jumping = True
+        cnt = 0
+        # while self.characterY >= y-self.jumpSize-self.characterHeight-60:
+        while cnt <= 100 + self.characterHeight / 5:
+            cnt += self.jumpSize
+            self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
+            sleep(0.01)
+        # if ( self.characterX >= 70 and self.characterX <= 160 and self.characterY==442) or (self.characterX >= 574 and self.characterX <= 649 and self.characterY==442 ) or (self.characterX >= 160 and self.characterX <= 235 and self.characterY==332) or (self.characterX >= 499 and self.characterX <= 574 and self.characterY==332):
+        self.characterY= y
+        self.character.move(self.characterX,self.characterY)
+        self.Jumping = False
 
     def jump(self, y):
         self.Jumping = True
@@ -145,6 +163,7 @@ class Example(QMainWindow):
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
             sleep(0.01)
+        #if ( self.characterX >= 70 and self.characterX <= 160 and self.characterY==442) or (self.characterX >= 574 and self.characterX <= 649 and self.characterY==442 ) or (self.characterX >= 160 and self.characterX <= 235 and self.characterY==332) or (self.characterX >= 499 and self.characterX <= 574 and self.characterY==332):
         self.fix()
         self.Jumping = False
 
@@ -177,8 +196,9 @@ class Example(QMainWindow):
                 while self.charFalling:
                     self.characterY += 1
                     self.character.move(self.characterX, self.characterY)
-                    sleep(0.001)
+                    #sleep(0.001)
                     self.checkPosition()
+            self.Moving = False
 
         elif (key == Qt.Key_Right and self.canMoveRight()  or key==Qt.Key_D and self.canMoveRight()):
             self.Moving = True
@@ -193,12 +213,17 @@ class Example(QMainWindow):
                 while self.charFalling:
                     self.characterY += 1
                     self.character.move(self.characterX, self.characterY)
-                    sleep(0.001)
+                    #sleep(0.001)
                     self.checkPosition()
+            self.Moving = False
 
         elif (key == Qt.Key_Up and self.canMoveUp() and not self.Jumping or key==Qt.Key_W and self.canMoveUp()):
-            threadJump = Thread(target=self.jump,args=[self.characterY] ,daemon=True)
-            threadJump.start()
+            if ( self.characterX >= 70 and self.characterX <= 160 and self.characterY== 442) or (self.characterX >= 574 and self.characterX <= 649 and self.characterY== 442 ) or (self.characterX >= 160 and self.characterX <= 235 and self.characterY== 332) or (self.characterX >= 499 and self.characterX <= 574 and self.characterY== 332):
+                threadStayOnPlatform = Thread(target=self.stayPlatform, args=[self.characterY], daemon=True)
+                threadStayOnPlatform.start()
+            else:
+                threadJump = Thread(target=self.jump, args=[self.characterY], daemon=True)
+                threadJump.start()
            # self.characterY -= self.jumpSize
             #self.character.move(self.characterX, self.characterY)
 
