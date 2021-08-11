@@ -30,15 +30,15 @@ class Example(QMainWindow):
         self.initUI()
 
     def checkPosition(self):
-        self.xy = [self.characterX, self.characterY]
-        for platform in Blocks:
-            if (self.xy[1] == platform[0] and self.xy[0] > platform[1] and self.xy[0] < platform[2]):
-                self.onPlatform = True
-                self.charFalling = False
-                break
-            else:
-                self.onPlatform = False
-                self.charFalling = True
+            self.xy = [self.characterX, self.characterY]
+            for platform in Blocks:
+                if (self.xy[1] == platform[0] and self.xy[0] > platform[1] and self.xy[0] < platform[2]):
+                    self.onPlatform = True
+                    self.charFalling = False
+                    break
+                else:
+                    self.onPlatform = False
+                    self.charFalling = True
 
     def initUI(self):
         self.initWindow()
@@ -46,7 +46,8 @@ class Example(QMainWindow):
         self.initCharacter()
         self.moveSize = 25
         self.jumpSize = 5  # 100
-        self.gravityThread = Thread(target=self.checkPosition, daemon=True)
+        self.gravityThread = Thread(target=self.checkPosition)
+
         self.show()
 
     def initWindow(self):
@@ -54,7 +55,7 @@ class Example(QMainWindow):
         self.windowHeight = int(620)
         self.setFixedSize(self.windowWidth, self.windowHeight)
         self.setWindowTitle("Bubble Bobble")
-        self.setWindowIcon(QIcon('bbobble.png'))
+        self.setWindowIcon(QIcon('Pictures/bbobble.png'))
 
     def setBackground(self):
         self.bacground = QLabel(self)
@@ -162,7 +163,7 @@ class Example(QMainWindow):
             cnt += self.jumpSize
             self.characterY -= self.jumpSize
             self.character.move(self.characterX, self.characterY)
-            sleep(0.01)
+            sleep(0.02)
         #if ( self.characterX >= 70 and self.characterX <= 160 and self.characterY==442) or (self.characterX >= 574 and self.characterX <= 649 and self.characterY==442 ) or (self.characterX >= 160 and self.characterX <= 235 and self.characterY==332) or (self.characterX >= 499 and self.characterX <= 574 and self.characterY==332):
         self.fix()
         self.Jumping = False
@@ -187,7 +188,7 @@ class Example(QMainWindow):
             self.Moving = True
             self.characterX -= self.moveSize
             self.side = 'l'
-            self.checkPosition()
+            self.gravityThread.start()
             if self.onPlatform:
                 self.character.move(self.characterX, self.characterY)
                 self.character.setStyleSheet("image: url(bbobble_left.png)")
@@ -196,15 +197,14 @@ class Example(QMainWindow):
                 while self.charFalling:
                     self.characterY += 1
                     self.character.move(self.characterX, self.characterY)
-                    #sleep(0.001)
-                    self.checkPosition()
+                    self.gravityThread.start()
             self.Moving = False
 
         elif (key == Qt.Key_Right and self.canMoveRight()  or key==Qt.Key_D and self.canMoveRight()):
             self.Moving = True
             self.characterX += self.moveSize
             self.side = 'r'
-            self.checkPosition()
+            self.gravityThread.start()
             if self.onPlatform:
                 self.character.move(self.characterX, self.characterY)
                 self.character.setStyleSheet("image: url(bbobble.png)")
@@ -213,8 +213,7 @@ class Example(QMainWindow):
                 while self.charFalling:
                     self.characterY += 1
                     self.character.move(self.characterX, self.characterY)
-                    #sleep(0.001)
-                    self.checkPosition()
+                    self.gravityThread.start()
             self.Moving = False
 
         elif (key == Qt.Key_Up and self.canMoveUp() and not self.Jumping or key==Qt.Key_W and self.canMoveUp()):
@@ -238,7 +237,7 @@ class Example(QMainWindow):
                     self.ableToFire = False
                     self.fireSide = self.side
                     self.initBubble()
-                    thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY, self.fireSide], daemon=True)
+                    thread = Thread(target=self.fire, args=[self.bubble, self.bubbleX, self.bubbleY, self.fireSide])
                     thread.start()
             except:
                 self.Fiering = False

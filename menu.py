@@ -1,74 +1,66 @@
-import sys
+import sys, random
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLabel, QWidget, QPushButton, QApplication
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QImage, QPalette, QBrush
+from PyQt5.QtWidgets import *
+from PyQt5 import  QtCore, QtGui, QtWidgets
 import game
+from singleplayer import SinglePlayer
 
-class Menu(QWidget):
+class UI(QtWidgets.QWidget):
 
-    def __init__(self):
-        super(Menu,self).__init__()
-        self.initUI()
+    def init(self):
 
-    def initUI(self):
-        self.initWindow()
-        self.setBackground()
-        self.meni()
-        self.show()
+        self.StackedWidgets = QStackedWidget()
+        self.stack1 = QWidget()
+        self.stack2 = QWidget()
+        self.stack3 = QWidget()
+        self.stack4 = QWidget()
 
-    def initWindow(self):
-        self.windowWidth = int(800)
-        self.windowHeight = int(620)
-        self.setFixedSize(self.windowWidth, self.windowHeight)
-        self.setWindowTitle("Bubble Bobble")
-        self.setWindowIcon(QIcon('bbobble.png'))
+        self.stack2 = SinglePlayer()
+        self.MenuUI()
 
-    def setBackground(self):
-        self.bacground = QLabel(self)
-        self.bacground.setStyleSheet("background-image: url(menu_bcgrdn.jpg)")
-        self.bacground.resize(self.windowWidth,self.windowHeight - 20)
-        self.bacground.show()
+        self.StackedWidgets.addWidget(self.stack1)
+        self.StackedWidgets.addWidget(self.stack2)
+        self.StackedWidgets.addWidget(self.stack3)
+        self.StackedWidgets.addWidget(self.stack4)
 
-    def meni(self):
-        self.button1 = QPushButton(self)
-        self.button1.setGeometry(50,200,300,50)
-        self.button1.setText('Singleplayer')
-        self.button1.clicked.connect(self.spPlay)
-        self.button1.show()
+    def MenuUI(self):
+        self.stack1.setFixedSize(800, 620)
 
-        self.button2 = QPushButton(self)
-        self.button2.setGeometry(50, 250, 300, 50)
-        self.button2.setText('Multiplayer')
-        self.button2.clicked.connect(self.mpPlay)
-        self.button2.show()
+        layout = QVBoxLayout()
 
-        self.button3 = QPushButton(self)
-        self.button3.setGeometry(50, 300, 300, 50)
-        self.button3.setText('Settings')
-        self.button3.clicked.connect(self.settings)
-        self.button3.show()
+        oImage = QImage('Pictures/menu_bcgrdn.jpg')
+        sImage = oImage.scaled(QSize(800, 620))
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(sImage))
+        self.setPalette(palette)
 
-        self.button4 = QPushButton(self)
-        self.button4.setGeometry(50, 350, 300, 50)
-        self.button4.setText('Exit')
-        self.button4.clicked.connect(self.exit)
-        self.button4.show()
+        self.btn = QPushButton(self.stack1)
+        self.btn1 = QPushButton(self.stack1)
+        self.btn2 = QPushButton(self.stack1)
+        self.btn3 = QPushButton(self.stack1)
 
-    def spPlay(self):
-        self.close()
-        self.open = game.Example()
-        self.open.show()
+        self.btn.setText("Singleplayer")
+        self.btn1.setText("Multiplayer")
+        self.btn2.setText("Options")
+        self.btn3.setText("Exit")
 
-    def mpPlay(self):
-        self.close()
+        self.btn.setFixedSize(200, 80)
+        self.btn1.setFixedSize(200, 80)
+        self.btn2.setFixedSize(200, 80)
+        self.btn3.setFixedSize(200, 80)
 
-    def settings(self):
-        self.close()
+        layout.addWidget(self.btn)
+        layout.addWidget(self.btn1)
+        layout.addWidget(self.btn2)
+        layout.addWidget(self.btn3)
+        layout.setAlignment(QtCore.Qt.AlignCenter)
 
-    def exit(self):
-        self.close()
+        self.stack1.setLayout(layout)
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    menu = Menu()
-    sys.exit(app.exec_())
+
+    def center(self):
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2 - 50)
