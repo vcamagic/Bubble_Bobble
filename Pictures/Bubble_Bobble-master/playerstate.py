@@ -54,7 +54,7 @@ class State(QObject):
         if (self.koji == 0):
             while not self.is_done:
                 if (self.isJumping == True and self.onPlatform == True):
-                    while self.jumpCount < 40 and variables.y > 40:
+                    while self.jumpCount < 40 and variables.y > 20:
                         #ako se pomera i levo da pomeri i tamo
                         if(self.movingLeft == True and variables.x > 55):
                             variables.left = True

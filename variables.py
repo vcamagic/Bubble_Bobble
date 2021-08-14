@@ -21,3 +21,17 @@ reset = False
 takeLife = False
 gameOver = True
 increaseLevel = False
+
+
+currentPositionEnemy = [[600, 450], [600, 260], [300, 80], [900, 80]]
+
+currPos = [[0, 0], [0, 0], [0, 0], [0, 0]]
+
+Collected = [False, False, False, False]
+
+Frozen = [False, False, False, False]
+
+collectedEnemy = 0
+aliveEnemy = 4
+deadEnemy = 0
+

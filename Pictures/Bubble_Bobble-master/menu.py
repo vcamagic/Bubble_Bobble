@@ -12,10 +12,10 @@ class UI(QtWidgets.QWidget):
     def init(self):
 
         self.StackedWidgets = QStackedWidget()
-        self.stack1 = QWidget() # menu
-        self.stack2 = QWidget() # singleplayer
-        self.stack3 = QWidget() # multiplayer
-        self.stack4 = QWidget() # options
+        self.stack1 = QWidget()
+        self.stack2 = QWidget()
+        self.stack3 = QWidget()
+        self.stack4 = QWidget()
 
         self.stack2 = SinglePlayer()
         self.MenuUI()

@@ -40,4 +40,4 @@ class KeyNotifier(QObject):
         while not self.is_done:
             for k in self.keys:
                 self.key_signal.emit(k)
-            time.sleep(0.003)
+            time.sleep(0.001)

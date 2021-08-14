@@ -9,7 +9,6 @@ from PyQt5.QtCore import QThread, QTimer
 from character import Charachter
 from key_notifier import KeyNotifier
 from bullet import Bullet
-from enemy import Enemy
 
 global label1
 global label2
@@ -25,19 +24,10 @@ class SinglePlayer(QWidget):
         self.label1 = Charachter(self, 0)
         self.label2 = Bullet(self, 0)
 
-        self.enemyLabel1 = Enemy(self, [random.randrange(100, 700, 10), random.randrange(100, 500, 10)], 0,
-                               self.label1, 0)
-        self.enemyLabel2 = Enemy(self, [random.randrange(100, 700, 10), random.randrange(100, 500, 10)], 1,
-                                self.label1, 0)
-        self.enemyLabel3 = Enemy(self, [random.randrange(100, 700, 10), random.randrange(100, 500, 10)], 2,
-                             self.label1, 0)
-        self.enemyLabel4 = Enemy(self, [random.randrange(100, 700, 10), random.randrange(100, 500, 10)], 3,
-                                self.label1, 0)
-
         self.initPrso()
         self.label2.char = self.label1
         self.label1.bullet = self.label2
-        self.labele = Labels(self, 0)
+        self.labels = Labels(self, 0)
 
         thread = threading.Thread(target=self.points)
         thread.start()
@@ -63,13 +53,13 @@ class SinglePlayer(QWidget):
     def points(self):
         while True:
             if variables.gameLive == True:
-                self.labele.changeScore(variables.points)
+                self.labels.changeScore(variables.points)
                 if variables.reset == True:
-                    self.labele.resetAll1()
+                    self.labels.resetAll1()
                     variables.reset = False
                     variables.points = 0
                 if variables.takeLife:
-                    self.labele.changeLives()
+                    self.labels.changeLives()
                     variables.takeLife = False
                     if(variables.lifes == 0):
                         variables.gameOver = True

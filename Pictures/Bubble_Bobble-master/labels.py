@@ -10,7 +10,7 @@ class Labels:
             self.label.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label.setFont(font)
             self.label.setObjectName("label")
             self.label.setText("Score: ")
@@ -18,19 +18,19 @@ class Labels:
             self.points = 0
 
             self.label_2 = QtWidgets.QLabel(screen)
-            self.label_2.setGeometry(QtCore.QRect(10, 39, 55, 40))
+            self.label_2.setGeometry(QtCore.QRect(10, 39, 55, 100))
             self.label_2.setStyleSheet('background-image: url()')
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label_2.setFont(font)
             self.label_2.setObjectName("label2")
             self.label_2.setNum(self.points)
 
             self.label_3 = QtWidgets.QLabel(screen)
-            self.label_3.setGeometry(QtCore.QRect(10, 20, 100, 250))
+            self.label_3.setGeometry(QtCore.QRect(10, 20, 100, 435))
             self.label_3.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label_3.setFont(font)
             self.label_3.setObjectName("label3")
             self.label_3.setText("LIVES:")
@@ -38,11 +38,11 @@ class Labels:
             self.lives = 3
 
             self.label_4 = QtWidgets.QLabel(screen)
-            self.label_4.setGeometry(QtCore.QRect(10, 39, 55, 255))
+            self.label_4.setGeometry(QtCore.QRect(10, 39, 55, 500))
             self.label_4.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label_4.setFont(font)
             self.label_4.setObjectName("label4")
             self.label_4.setNum(self.lives)
@@ -52,7 +52,7 @@ class Labels:
             self.label_5.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label_5.setFont(font)
             self.label_5.setObjectName("label5")
             self.label_5.setText("LEVEL:")
@@ -64,10 +64,9 @@ class Labels:
             self.label_6.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
-            font.setPointSize(20)
+            font.setPointSize(50)
             self.label_6.setFont(font)
             self.label_6.setObjectName("label5")
-
             self.label_6.setNum(self.level)
 
     def resetAll1(self):
