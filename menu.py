@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import  QtCore, QtGui, QtWidgets
 import game
 from singleplayer import SinglePlayer
+from gameover import  GameOver
 
 class UI(QtWidgets.QWidget):
 
@@ -19,6 +20,10 @@ class UI(QtWidgets.QWidget):
 
         self.stack2 = SinglePlayer()
         self.MenuUI()
+
+
+        self.stack4 = GameOver(self.StackedWidgets)
+
 
         self.StackedWidgets.addWidget(self.stack1)
         self.StackedWidgets.addWidget(self.stack2)

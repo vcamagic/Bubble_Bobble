@@ -58,11 +58,11 @@ class State(QObject):
                         #ako se pomera i levo da pomeri i tamo
                         if(self.movingLeft == True and variables.x > 55):
                             variables.left = True
-                            variables.x -= 5
+                            variables.x -= 5 + variables.level / 2
                             self.movingLeft = False
                         if (self.movingRight == True and variables.x < 720):
                             variables.left = False
-                            variables.x += 5
+                            variables.x += 5 + variables.level / 2
                             self.movingRight = False
                         if ( self.dontJump == True):
                             self.onPlatform = True
@@ -80,11 +80,11 @@ class State(QObject):
                     while self.onPlatform == False:
                         if(self.movingLeft == True and variables.x > 55):
                             variables.left = True
-                            variables.x -= 5
+                            variables.x -= 5 + variables.level / 2
                             self.movingLeft = False
                         if (self.movingRight == True and variables.x < 720):
                             variables.left = False
-                            variables.x += 5
+                            variables.x += 5 + variables.level / 2
                             self.movingRight = False
                         if (self.dontJump == True):
                             self.onPlatform = True
@@ -97,12 +97,12 @@ class State(QObject):
                     self.isFalling = False
                 elif(self.onPlatform == True and self.movingRight == True and variables.x < 720):
                     variables.left = False
-                    variables.x += 5
+                    variables.x += 5 + variables.level / 2
                     self.checkOnPlatform()
                     self.movingRight = False
                 elif (self.onPlatform == True and self.movingLeft == True and variables.x > 55):
                     variables.left = True
-                    variables.x -= 5
+                    variables.x -= 5 + variables.level / 2
                     self.checkOnPlatform()
                     self.movingLeft = False
                 time.sleep(0.01)

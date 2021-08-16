@@ -36,7 +36,7 @@ class Enemy(QLabel):
     def changePosition(self):
         if variables.gameLive == True and self.kojiBroj == 0:
             if((variables.currPos[self.koji][0] - 50 < variables.x and variables.currPos[self.koji][0] + 50 > variables.x) and
-                    (variables.currPos[self.koji][1] - 50 < variables.y and variables.currPos[self.koji][1] + 50 > variables.y) and variables.Frozen[self.koji]==False):
+                    (variables.currPos[self.koji][1] - 50 < variables.y and variables.currPos[self.koji][1] + 50 > variables.y) and variables.Collected[self.koji]==False):
                 variables.Collected[self.koji] = True
                 variables.collectedEnemy += 1
                 variables.points += 1
@@ -68,13 +68,14 @@ class Enemy(QLabel):
                 if(self.position.x() - 50 < variables.x and self.position.x() + 50 > variables.x ) and (self.position.y() - 50 < variables.y and self.position.y() + 50 > variables.y ):
                     variables.charDead = True
                     variables.takeLife = True
+                    print(variables.lifes)
 
             self.whereToGo2()
 
             if variables.charDead == True:
                 self.setVisible(True)
-                variables.x = 200
-                variables.y = 820
+                variables.x = 370
+                variables.y = 552
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -94,8 +95,8 @@ class Enemy(QLabel):
 
             if variables.collectedEnemy == 4:
                 self.setVisible(True)
-                variables.x = 200
-                variables.y = 820
+                variables.x = 370
+                variables.y = 552
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -121,21 +122,21 @@ class Enemy(QLabel):
     def whereToGo2(self):
         if variables.Frozen[self.koji] == False:
             if (variables.x - 5 < variables.currentPositionEnemy[self.koji][0] and variables.x + 5 >variables.currentPositionEnemy[self.koji][0]):
-                    variables.currentPositionEnemy[self.koji][0] = variables.x
+                    variables.currentPositionEnemy[self.koji][0] = variables.x + variables.level / 2
             else:
                 if(variables.x > variables.currentPositionEnemy[self.koji][0]):
                     self.setPixmap(self.pix1.scaled(50, 50).transformed((QTransform().scale(-1, 1))))
-                    variables.currentPositionEnemy[self.koji][0] += 2
+                    variables.currentPositionEnemy[self.koji][0] += 2 + variables.level / 2
                 else:
                     self.setPixmap(self.pix1.scaled(50, 50))
-                    variables.currentPositionEnemy[self.koji][0] -= 2
+                    variables.currentPositionEnemy[self.koji][0] -= 2 + variables.level / 2
             if (variables.y - 5 < variables.currentPositionEnemy[self.koji][1] and variables.y + 5 > variables.currentPositionEnemy[self.koji][1]):
                 variables.currentPositionEnemy[self.koji][1] = variables.y
             else:
                 if(variables.y > variables.currentPositionEnemy[self.koji][1]):
-                    variables.currentPositionEnemy[self.koji][1] += 1
+                    variables.currentPositionEnemy[self.koji][1] += 1 + variables.level / 2
                 else:
-                    variables.currentPositionEnemy[self.koji][1] -= 1
+                    variables.currentPositionEnemy[self.koji][1] -= 1 + variables.level / 2
 
 
 

@@ -35,3 +35,5 @@ collectedEnemy = 0
 aliveEnemy = 4
 deadEnemy = 0
 
+level = 1
+
