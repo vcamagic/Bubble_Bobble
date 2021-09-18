@@ -1,8 +1,7 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
-from PyQt5.QtCore import QSize
-from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, random, threading, variables, time
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QDesktopWidget
+import threading
+import variables
+import time
 
 class GameOver(QWidget):
 
@@ -36,6 +35,8 @@ class GameOver(QWidget):
                 self.sw.setCurrentIndex(3)
                 variables.gameOver = False
                 variables.gameLive = False
+                variables.gameMultiLive = False
+                variables.charDead2 = False
                 variables.charDead = False
                 variables.reset = True
             time.sleep(0.3)

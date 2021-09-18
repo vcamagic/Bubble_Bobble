@@ -1,6 +1,4 @@
-from PyQt5.QtCore import QThread, QObject, pyqtSignal, pyqtSlot
-from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtCore import QObject, pyqtSignal, QThread, pyqtSlot
 import time
 
 class KeyNotifier(QObject):
@@ -40,4 +38,4 @@ class KeyNotifier(QObject):
         while not self.is_done:
             for k in self.keys:
                 self.key_signal.emit(k)
-            time.sleep(0.003)
+            time.sleep(0.001)

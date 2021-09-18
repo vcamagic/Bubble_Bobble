@@ -1,10 +1,9 @@
-import sys, random
-
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QImage, QPalette, QBrush
 from PyQt5.QtWidgets import *
 from PyQt5 import  QtCore, QtGui, QtWidgets
-import game
+
+from multiplayer import MultiPlayer
 from singleplayer import SinglePlayer
 from gameover import  GameOver
 
@@ -21,6 +20,7 @@ class UI(QtWidgets.QWidget):
         self.stack2 = SinglePlayer()
         self.MenuUI()
 
+        self.stack3 = MultiPlayer()
 
         self.stack4 = GameOver(self.StackedWidgets)
 

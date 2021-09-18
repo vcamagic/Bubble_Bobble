@@ -71,9 +71,9 @@ class SinglePlayer(QWidget):
                 if variables.takeLife:
                     self.labele.changeLives()
                     variables.takeLife = False
-                    if(variables.lifes == 1):
+                    if(variables.lives == 1):
                         variables.gameOver = True
-                    variables.lifes -= 1
+                    variables.lives -= 1
                 if variables.increaseLevel:
                     self.labele.changeLevel()
                     variables.increaseLevel = False

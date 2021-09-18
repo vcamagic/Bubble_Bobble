@@ -33,7 +33,7 @@ class Game(QMainWindow, UI):
 
     def openSinglePlay(self):
         self.StackedWidgets.setCurrentIndex(1)
-        variables.lifes = 3
+        variables.lives = 3
         variables.gameLive = True
 
     def display(self):

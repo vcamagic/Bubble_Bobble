@@ -1,24 +1,41 @@
 x = 0
 y = 0
 
+x2 = 0
+y2 = 0
+
 charDead = False
+charDead2 = False
 
 left = True
+left2 = True
 
 isShot = False
 bulletX = 0
 bulletY = 0
+
+isShot2 = False
+bullet2X = 0
+bullet2Y = 0
+
 bulletused = False
+bulletused2 = False
 
 gameLive = False
+gameMultiLive = False
 
-lifes = 3
+lives = 3
+lives2 = 3
 
 points = 0
+points2 = 0
 
 reset = False
+reset2 = False
 
 takeLife = False
+takeLife2 = False
+
 gameOver = True
 increaseLevel = False
 
@@ -36,4 +53,3 @@ aliveEnemy = 4
 deadEnemy = 0
 
 level = 1
-

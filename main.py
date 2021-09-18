@@ -1,11 +1,9 @@
-import os
-
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
-from PyQt5.QtCore import QSize
-from PyQt5 import QtCore, QtGui
-import sys, random, variables, os
-from menu import  UI
+from PyQt5.QtGui import QIcon
+import sys
+import variables
+import os
+from menu import UI
 
 class Game(QMainWindow, UI):
 
@@ -14,6 +12,7 @@ class Game(QMainWindow, UI):
         self.init()
         self.initUI()
         self.btn.clicked.connect(self.openSinglePlay)
+        self.btn1.clicked.connect(self.openMultiPlay)
         self.btn3.clicked.connect(self.exit)
 
 
@@ -33,8 +32,14 @@ class Game(QMainWindow, UI):
 
     def openSinglePlay(self):
         self.StackedWidgets.setCurrentIndex(1)
-        variables.lifes = 3
+        variables.lives = 3
         variables.gameLive = True
+
+    def openMultiPlay(self):
+        self.StackedWidgets.setCurrentIndex(2)
+        variables.lives = 3
+        variables.lives2 = 3
+        variables.gameMultiLive = True
 
     def display(self):
         self.stackedWidgets.setCurrentIndex(0)

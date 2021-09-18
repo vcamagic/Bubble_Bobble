@@ -1,17 +1,12 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QThread, QObject
-from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
 import time
-
 import variables
-
-#y x1 x2
-
+#              y   x1   x2
 Platforms = [[552, 51, 750],
-    [442, 70, 649],
-    [332, 160, 574],
-    [218, 235, 499]]
+             [442, 70, 649],
+             [332, 160, 574],
+             [218, 235, 499]]
 
 movingLeft = False
 movingRight = False
@@ -32,7 +27,8 @@ class State(QObject):
         self.moveToThread(self.thread)
         if self.koji == 0:
             self.pix1 = QPixmap('Pictures/bbobble.png')
-
+        else:
+            self.pix1 = QPixmap('Pictures/bbobble2.png')
         self.thread.started.connect(self.check)
         self.dontJump = False
 
@@ -42,7 +38,17 @@ class State(QObject):
     def checkOnPlatform(self):
         self.rec1 = [variables.x, variables.y]
         for x in Platforms:
-            if(self.rec1[1] < x[0] + 30 and self.rec1[1] > x[0] and self.rec1[0] > x[1] and self.rec1[0] < x[2] ):
+            if(self.rec1[1] < x[0] + 30 and self.rec1[1] > x[0] and self.rec1[0] > x[1] and self.rec1[0] < x[2]):
+                self.onPlatform = True
+                self.isFalling = False
+                break
+            else:
+                self.onPlatform = False
+                self.isFalling = True
+    def checkOnPlatform2(self):
+        self.rec1 = [variables.x2, variables.y2]
+        for x in Platforms:
+            if(self.rec1[1] < x[0] + 30 and self.rec1[1] > x[0] and self.rec1[0] > x[1] and self.rec1[0] < x[2]):
                 self.onPlatform = True
                 self.isFalling = False
                 break
@@ -51,7 +57,7 @@ class State(QObject):
                 self.isFalling = True
 
     def check(self):
-        if (self.koji == 0):
+        if self.koji == 0:
             while not self.is_done:
                 if (self.isJumping == True and self.onPlatform == True):
                     while self.jumpCount < 40 and variables.y > 40:
@@ -106,10 +112,61 @@ class State(QObject):
                     self.checkOnPlatform()
                     self.movingLeft = False
                 time.sleep(0.01)
-
-
-
-
+        elif self.koji == 1:
+            while not self.is_done:
+                if (self.isJumping == True and self.onPlatform == True):
+                    while self.jumpCount < 40 and variables.y2 > 40:
+                        #ako se pomera i levo da pomeri i tamo
+                        if(self.movingLeft == True and variables.x2 > 55):
+                            variables.left2 = True
+                            variables.x2 -= 5 + variables.level / 2
+                            self.movingLeft = False
+                        if (self.movingRight == True and variables.x2 < 720):
+                            variables.left2 = False
+                            variables.x2 += 5 + variables.level / 2
+                            self.movingRight = False
+                        if ( self.dontJump == True):
+                            self.onPlatform = True
+                            self.isJumping = False
+                            self.isFalling = False
+                            break
+                        variables.y2 -= 5
+                        self.jumpCount += 1
+                        self.thread.msleep(1)
+                    self.isJumping = False
+                    self.jumpCount = 0
+                    self.isFalling = True
+                    self.onPlatform = False
+                elif self.isFalling == True:
+                    while self.onPlatform == False:
+                        if self.movingLeft == True and variables.x2 > 55:
+                            variables.left = True
+                            variables.x2 -= 5 + variables.level / 2
+                            self.movingLeft = False
+                        if self.movingRight == True and variables.x2 < 720:
+                            variables.left = False
+                            variables.x2 += 5 + variables.level / 2
+                            self.movingRight = False
+                        if self.dontJump == True:
+                            self.onPlatform = True
+                            self.isJumping = False
+                            self.isFalling = False
+                            break
+                        variables.y2 += 5
+                        self.thread.msleep(1)
+                        self.checkOnPlatform2()
+                    self.isFalling = False
+                elif (self.onPlatform == True and self.movingRight == True and variables.x2 < 720):
+                    variables.left2 = False
+                    variables.x2 += 5 + variables.level / 2
+                    self.checkOnPlatform2()
+                    self.movingRight = False
+                elif (self.onPlatform == True and self.movingLeft == True and variables.x2 > 55):
+                    variables.left2 = True
+                    variables.x2 -= 5 + variables.level / 2
+                    self.checkOnPlatform2()
+                    self.movingLeft = False
+                time.sleep(0.01)
 
     def kill(self):
         self.is_done = True
