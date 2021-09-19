@@ -86,12 +86,12 @@ class BulletSate(QGraphicsObject):
                             self.thread.msleep(1)
                         else:
                             if self.substract == False:
-                                self.bullet.setGeometry(self.x, self.position.y() + 30, 30, 30)
+                                self.bullet.setGeometry(self.x, self.position.y(), 30, 30)
                                 self.x += 5
                                 variables.bullet2X = self.x
                                 self.thread.msleep(1)
                             else:
-                                self.bullet.setGeometry(self.x, self.position.y() + 30, 30, 30)
+                                self.bullet.setGeometry(self.x, self.position.y(), 30, 30)
                                 self.x -= 5
                                 variables.bullet2X = self.x
                                 self.thread.msleep(1)
