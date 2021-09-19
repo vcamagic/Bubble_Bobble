@@ -3,6 +3,8 @@ from PyQt5.QtGui import QIcon
 import sys
 import variables
 import os
+
+from TournamentWindow import TournamentWindow
 from menu import UI
 
 class Game(QMainWindow, UI):
@@ -13,6 +15,7 @@ class Game(QMainWindow, UI):
         self.initUI()
         self.btn.clicked.connect(self.openSinglePlay)
         self.btn1.clicked.connect(self.openMultiPlay)
+        self.btn2.clicked.connect(self.openTournament)
         self.btn3.clicked.connect(self.exit)
 
 
@@ -40,6 +43,13 @@ class Game(QMainWindow, UI):
         variables.lives = 3
         variables.lives2 = 3
         variables.gameMultiLive = True
+
+    def openTournament(self):
+        self.StackedWidgets.setCurrentIndex(3)
+        variables.lives = 3
+        variables.lives2 = 3
+        variables.gameMultiLive = True
+        self.w = TournamentWindow()
 
     def display(self):
         self.stackedWidgets.setCurrentIndex(0)

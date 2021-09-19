@@ -74,7 +74,7 @@ class Enemy(QLabel):
             if variables.charDead == True:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 552
+                variables.y = 548
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -95,7 +95,7 @@ class Enemy(QLabel):
             if variables.collectedEnemy == 4:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 552
+                variables.y = 548
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -181,9 +181,9 @@ class Enemy(QLabel):
             if variables.charDead == True and variables.charDead2 == True:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 552
+                variables.y = 548
                 variables.x2 = 540
-                variables.y2 = 552
+                variables.y2 = 548
                 if variables.lives != 0:
                     variables.charDead = False
                 if variables.lives2 != 0:
@@ -207,9 +207,9 @@ class Enemy(QLabel):
             if variables.collectedEnemy == 4:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 552
+                variables.y = 548
                 variables.x = 540
-                variables.y = 552
+                variables.y = 548
                 if variables.lives != 0:
                     variables.charDead = False
                 if variables.lives2 != 0:
@@ -234,17 +234,17 @@ class Enemy(QLabel):
             else:
                 if(variables.x > variables.currentPositionEnemy[self.koji][0]):
                     self.setPixmap(self.pix1.scaled(50, 50).transformed((QTransform().scale(-1, 1))))
-                    variables.currentPositionEnemy[self.koji][0] += 2 + variables.level / 2
+                    variables.currentPositionEnemy[self.koji][0] += variables.level / 2
                 else:
                     self.setPixmap(self.pix1.scaled(50, 50))
-                    variables.currentPositionEnemy[self.koji][0] -= 2 + variables.level / 2
+                    variables.currentPositionEnemy[self.koji][0] -= variables.level / 2
             if (variables.y - 5 < variables.currentPositionEnemy[self.koji][1] and variables.y + 5 > variables.currentPositionEnemy[self.koji][1]):
                 variables.currentPositionEnemy[self.koji][1] = variables.y
             else:
                 if(variables.y > variables.currentPositionEnemy[self.koji][1]):
-                    variables.currentPositionEnemy[self.koji][1] += 1 + variables.level / 2
+                    variables.currentPositionEnemy[self.koji][1] += variables.level / 2
                 else:
-                    variables.currentPositionEnemy[self.koji][1] -= 1 + variables.level / 2
+                    variables.currentPositionEnemy[self.koji][1] -= variables.level / 2
 
     def whereToGo(self):
         if variables.Frozen[self.koji] == False:
@@ -263,31 +263,31 @@ class Enemy(QLabel):
                 else:
                     if (variables.x2 > variables.currentPositionEnemy[self.koji][0]):
                         self.setPixmap(self.pix1.scaled(50, 50).transformed((QTransform().scale(-1, 1))))
-                        variables.currentPositionEnemy[self.koji][0] += 4 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][0] += variables.level / 2
                     else:
                         self.setPixmap(self.pix1.scaled(50, 50))
-                        variables.currentPositionEnemy[self.koji][0] -= 4 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][0] -= variables.level / 2
                 if (variables.y2 - 5 < variables.currentPositionEnemy[self.koji][1] and variables.y2 + 5 > variables.currentPositionEnemy[self.koji][1]):
                     variables.currentPositionEnemy[self.koji][1] = variables.y2
                 else:
                     if (variables.y2 > variables.currentPositionEnemy[self.koji][1]):
-                        variables.currentPositionEnemy[self.koji][1] += 3 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][1] += variables.level / 2
                     else:
-                        variables.currentPositionEnemy[self.koji][1] -= 3 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][1] -= variables.level / 2
             else:
                 if (variables.x - 5 < variables.currentPositionEnemy[self.koji][0] and variables.x + 5 > variables.currentPositionEnemy[self.koji][0]):
                     variables.currentPositionEnemy[self.koji][0] = variables.x
                 else:
                     if (variables.x > variables.currentPositionEnemy[self.koji][0]):
                         self.setPixmap(self.pix1.scaled(50, 50).transformed((QTransform().scale(-1, 1))))
-                        variables.currentPositionEnemy[self.koji][0] += 4 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][0] +=variables.level / 2
                     else:
                         self.setPixmap(self.pix1.scaled(50, 50))
-                        variables.currentPositionEnemy[self.koji][0] -= 4 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][0] -= variables.level / 2
                 if (variables.y - 5 < variables.currentPositionEnemy[self.koji][1] and variables.y + 5 > variables.currentPositionEnemy[self.koji][1]):
                     variables.currentPositionEnemy[self.koji][1] = variables.y
                 else:
                     if (variables.y > variables.currentPositionEnemy[self.koji][1]):
-                        variables.currentPositionEnemy[self.koji][1] += 3 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][1] += variables.level / 2
                     else:
-                        variables.currentPositionEnemy[self.koji][1] -= 3 + variables.level / 2
+                        variables.currentPositionEnemy[self.koji][1] -= variables.level / 2

@@ -48,7 +48,7 @@ class UI(QtWidgets.QWidget):
 
         self.btn.setText("Singleplayer")
         self.btn1.setText("Multiplayer")
-        self.btn2.setText("Options")
+        self.btn2.setText("Tournament")
         self.btn3.setText("Exit")
 
         self.btn.setFixedSize(200, 80)
