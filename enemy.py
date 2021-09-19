@@ -74,7 +74,7 @@ class Enemy(QLabel):
             if variables.charDead == True:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 548
+                variables.y = 552
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -95,7 +95,7 @@ class Enemy(QLabel):
             if variables.collectedEnemy == 4:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 548
+                variables.y = 552
                 variables.charDead = False
                 variables.Frozen = [False, False, False, False]
                 variables.Collected = [False, False, False, False]
@@ -181,9 +181,9 @@ class Enemy(QLabel):
             if variables.charDead == True and variables.charDead2 == True:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 548
+                variables.y = 552
                 variables.x2 = 540
-                variables.y2 = 548
+                variables.y2 = 552
                 if variables.lives != 0:
                     variables.charDead = False
                 if variables.lives2 != 0:
@@ -207,9 +207,9 @@ class Enemy(QLabel):
             if variables.collectedEnemy == 4:
                 self.setVisible(True)
                 variables.x = 370
-                variables.y = 548
+                variables.y = 552
                 variables.x = 540
-                variables.y = 548
+                variables.y = 552
                 if variables.lives != 0:
                     variables.charDead = False
                 if variables.lives2 != 0:
