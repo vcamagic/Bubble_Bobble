@@ -73,7 +73,7 @@ class MultiPlayer(QWidget):
                 if variables.takeLife:
                     self.labele.changeLives()
                     variables.takeLife = False
-                    if (variables.lives == 0 and variables.lives2 != 0):
+                    if (variables.lives == 0 and variables.lives2 == 0):
                         variables.gameOver = True
 
                     variables.lives -= 1

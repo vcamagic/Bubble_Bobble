@@ -62,7 +62,7 @@ class State(QObject):
                 if (self.isJumping == True and self.onPlatform == True):
                     while self.jumpCount < 40 and variables.y > 40:
                         #ako se pomera i levo da pomeri i tamo
-                        if(self.movingLeft == True and variables.x > 55):
+                        if(self.movingLeft == True and variables.x > 60):
                             variables.left = True
                             variables.x -= 5 + variables.level / 2
                             self.movingLeft = False
@@ -84,7 +84,7 @@ class State(QObject):
                     self.onPlatform = False
                 elif(self.isFalling == True):
                     while self.onPlatform == False:
-                        if(self.movingLeft == True and variables.x > 55):
+                        if(self.movingLeft == True and variables.x > 60):
                             variables.left = True
                             variables.x -= 5 + variables.level / 2
                             self.movingLeft = False
@@ -106,7 +106,7 @@ class State(QObject):
                     variables.x += 5 + variables.level / 2
                     self.checkOnPlatform()
                     self.movingRight = False
-                elif (self.onPlatform == True and self.movingLeft == True and variables.x > 55):
+                elif (self.onPlatform == True and self.movingLeft == True and variables.x > 60):
                     variables.left = True
                     variables.x -= 5 + variables.level / 2
                     self.checkOnPlatform()
@@ -117,7 +117,7 @@ class State(QObject):
                 if (self.isJumping == True and self.onPlatform == True):
                     while self.jumpCount < 40 and variables.y2 > 40:
                         #ako se pomera i levo da pomeri i tamo
-                        if(self.movingLeft == True and variables.x2 > 55):
+                        if(self.movingLeft == True and variables.x2 > 60):
                             variables.left2 = True
                             variables.x2 -= 5 + variables.level / 2
                             self.movingLeft = False
@@ -139,12 +139,12 @@ class State(QObject):
                     self.onPlatform = False
                 elif self.isFalling == True:
                     while self.onPlatform == False:
-                        if self.movingLeft == True and variables.x2 > 55:
-                            variables.left = True
+                        if self.movingLeft == True and variables.x2 > 60:
+                            variables.left2 = True
                             variables.x2 -= 5 + variables.level / 2
                             self.movingLeft = False
                         if self.movingRight == True and variables.x2 < 720:
-                            variables.left = False
+                            variables.left2 = False
                             variables.x2 += 5 + variables.level / 2
                             self.movingRight = False
                         if self.dontJump == True:
@@ -161,7 +161,7 @@ class State(QObject):
                     variables.x2 += 5 + variables.level / 2
                     self.checkOnPlatform2()
                     self.movingRight = False
-                elif (self.onPlatform == True and self.movingLeft == True and variables.x2 > 55):
+                elif (self.onPlatform == True and self.movingLeft == True and variables.x2 > 60):
                     variables.left2 = True
                     variables.x2 -= 5 + variables.level / 2
                     self.checkOnPlatform2()
