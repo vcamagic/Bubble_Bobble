@@ -18,7 +18,7 @@ class Labels:
             self.points = 0
 
             self.label_2 = QtWidgets.QLabel(screen)
-            self.label_2.setGeometry(QtCore.QRect(32, 592, 40, 30))
+            self.label_2.setGeometry(QtCore.QRect(65, 592, 40, 30))
             self.label_2.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -40,7 +40,7 @@ class Labels:
             self.lives = 3
 
             self.label_4 = QtWidgets.QLabel(screen)
-            self.label_4.setGeometry(QtCore.QRect(110, 592, 50, 30))
+            self.label_4.setGeometry(QtCore.QRect(135, 592, 70, 30))
             self.label_4.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -50,7 +50,7 @@ class Labels:
             self.label_4.setNum(self.lives)
 
             self.label_5 = QtWidgets.QLabel(screen)
-            self.label_5.setGeometry(QtCore.QRect(351, 592, 70, 30))
+            self.label_5.setGeometry(QtCore.QRect(351, 592, 100, 30))
             self.label_5.setStyleSheet('background: yellow')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -62,7 +62,7 @@ class Labels:
             self.level = 1
 
             self.label_6 = QtWidgets.QLabel(screen)
-            self.label_6.setGeometry(QtCore.QRect(400, 592, 30, 30))
+            self.label_6.setGeometry(QtCore.QRect(415, 592, 30, 30))
             self.label_6.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -86,7 +86,7 @@ class Labels:
             self.points = 0
 
             self.label_2 = QtWidgets.QLabel(screen)
-            self.label_2.setGeometry(QtCore.QRect(35, 592, 40, 30))
+            self.label_2.setGeometry(QtCore.QRect(65, 592, 40, 30))
             self.label_2.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -96,7 +96,7 @@ class Labels:
             self.label_2.setNum(self.points)
 
             self.label_3 = QtWidgets.QLabel(screen)
-            self.label_3.setGeometry(QtCore.QRect(80, 592, 50, 30))
+            self.label_3.setGeometry(QtCore.QRect(90, 592, 50, 30))
             self.label_3.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -108,7 +108,7 @@ class Labels:
             self.lives = 3
 
             self.label_4 = QtWidgets.QLabel(screen)
-            self.label_4.setGeometry(QtCore.QRect(110, 592, 50, 30))
+            self.label_4.setGeometry(QtCore.QRect(145, 592, 50, 30))
             self.label_4.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -118,7 +118,7 @@ class Labels:
             self.label_4.setNum(self.lives)
 
             self.label_5 = QtWidgets.QLabel(screen)
-            self.label_5.setGeometry(QtCore.QRect(351, 592, 70, 30))
+            self.label_5.setGeometry(QtCore.QRect(351, 592, 100, 30))
             self.label_5.setStyleSheet('background: yellow')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -130,7 +130,7 @@ class Labels:
             self.level = 1
 
             self.label_6 = QtWidgets.QLabel(screen)
-            self.label_6.setGeometry(QtCore.QRect(400, 592, 30, 30))
+            self.label_6.setGeometry(QtCore.QRect(435, 592, 30, 30))
             self.label_6.setStyleSheet('background: yellow')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -152,7 +152,7 @@ class Labels:
             self.points2 = 0
 
             self.label_8 = QtWidgets.QLabel(screen)
-            self.label_8.setGeometry(QtCore.QRect(635, 592, 40, 30))
+            self.label_8.setGeometry(QtCore.QRect(670, 592, 40, 30))
             self.label_8.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -162,7 +162,7 @@ class Labels:
             self.label_8.setNum(self.points2)
 
             self.label_9 = QtWidgets.QLabel(screen)
-            self.label_9.setGeometry(QtCore.QRect(680, 592, 50, 30))
+            self.label_9.setGeometry(QtCore.QRect(690, 592, 50, 30))
             self.label_9.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
@@ -174,7 +174,7 @@ class Labels:
             self.lives2 = 3
 
             self.label_10 = QtWidgets.QLabel(screen)
-            self.label_10.setGeometry(QtCore.QRect(710, 592, 50, 30))
+            self.label_10.setGeometry(QtCore.QRect(745, 592, 50, 30))
             self.label_10.setStyleSheet('background-image: url()')
             font = QtGui.QFont()
             font.setFamily("Playbill")
