@@ -22,7 +22,6 @@ class Tournament(QWidget):
 
         self.igrac1 = name1
         self.igrac2 = name2
-        self.pobednik = ""
         self.queue = queue
         self.brojIgraca = brojIgraca
 
@@ -61,10 +60,12 @@ class Tournament(QWidget):
 
         self.labele = Labels(self, 1)
 
+        self.show()
         thread = threading.Thread(target=self.points)
         thread.start()
         thread = threading.Thread(target=self.points2)
         thread.start()
+
 
 
     def keyPressEvent(self, event):
@@ -75,7 +76,7 @@ class Tournament(QWidget):
 
     def writeWinner(self):
         f = open('pobednik.txt', 'w+')
-        f.write(self.pobednik)
+        f.write(variables.pobednik)
         f.close()
 
     def points(self):
@@ -90,17 +91,19 @@ class Tournament(QWidget):
                     self.labele.changeLives()
                     variables.takeLife = False
                     if (variables.lives == 0 and variables.lives2 != 0):
+                        variables.pobednik = self.igrac2
+                        self.writeWinner()
                         variables.gameOver = True
                         #self.pobednik = self.igrac2
                         #self.krajText = self.igrac1 + 'died. :(\n'
                         #self.krajText += self.igrac2 + 'won! :)\n'
-
                         #self.__GameOver()
                     variables.lives -= 1
                 if variables.increaseLevel:
                     self.labele.changeLevel()
                     variables.increaseLevel = False
                     variables.level += 1
+                    self.__init__(self.queue, self.igrac1,self.igrac2)
             time.sleep(0.3)
 
     def points2(self):
@@ -110,11 +113,12 @@ class Tournament(QWidget):
                 if variables.takeLife2:
                     self.labele.changeLives2()
                     if (variables.lives != 0 and variables.lives2 == 0):
+                        variables.pobednik  = self.igrac1
+                        self.writeWinner()
                         variables.gameOver = True
                         #self.pobednik = self.igrac1
                         #self.krajText = self.igrac2 + 'died. :(\n'
                         #self.krajText += self.igrac1 + 'won! :)\n'
-
                         #self.__GameOver()
                     variables.takeLife2 = False
                     variables.lives2 -= 1

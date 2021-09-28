@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QLabel, QLineEdit, QMessageBox, QVBoxLayout
 
+from Tournament import Tournament
 from TournamentSrednja import start_tournament
 
 
@@ -13,7 +14,7 @@ class TournamentWindow(QMainWindow):
         layout = QVBoxLayout()
         self.label = QLabel("Another Window")
         layout.addWidget(self.label)
-        self.setFixedSize(500, 500)
+        self.setFixedSize(800, 620)
         self.setWindowTitle("Tournament")
         self.setLayout(layout)
         self.winner = None
@@ -105,6 +106,7 @@ class TournamentWindow(QMainWindow):
             player3_input = self.imeTrecegIgraca.text()
             player4_input = self.imeCetvrtogIgraca.text()
 
+            #start_tournament(player1_input,player2_input,player3_input,player4_input)
             thread = Thread(target=start_tournament, args=(player1_input, player2_input, player3_input, player4_input))
             thread.daemon = True
             thread.start()

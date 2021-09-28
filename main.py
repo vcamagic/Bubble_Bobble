@@ -49,7 +49,6 @@ class Game(QMainWindow, UI):
         variables.lives = 3
         variables.lives2 = 3
         variables.gameMultiLive = True
-        self.w = TournamentWindow()
 
     def display(self):
         self.stackedWidgets.setCurrentIndex(0)

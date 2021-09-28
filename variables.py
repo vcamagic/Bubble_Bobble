@@ -53,3 +53,5 @@ aliveEnemy = 4
 deadEnemy = 0
 
 level = 1
+
+pobednik = ""

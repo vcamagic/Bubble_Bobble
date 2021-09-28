@@ -1,11 +1,12 @@
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QImage, QPalette, QBrush
 from PyQt5.QtWidgets import *
-from PyQt5 import  QtCore, QtGui, QtWidgets
+from PyQt5 import  QtCore, QtWidgets
 
+from TournamentWindow import TournamentWindow
 from multiplayer import MultiPlayer
 from singleplayer import SinglePlayer
-from gameover import  GameOver
+from gameover import GameOver
 
 class UI(QtWidgets.QWidget):
 
@@ -15,20 +16,24 @@ class UI(QtWidgets.QWidget):
         self.stack1 = QWidget() # menu
         self.stack2 = QWidget() # singleplayer
         self.stack3 = QWidget() # multiplayer
-        self.stack4 = QWidget() # options
+        self.stack4 = QWidget() # tournament
+        self.stack5 = QWidget() # options
 
         self.stack2 = SinglePlayer()
         self.MenuUI()
 
         self.stack3 = MultiPlayer()
 
-        self.stack4 = GameOver(self.StackedWidgets)
+        self.stack4 = TournamentWindow()
+
+        self.stack5 = GameOver(self.StackedWidgets)
 
 
         self.StackedWidgets.addWidget(self.stack1)
         self.StackedWidgets.addWidget(self.stack2)
         self.StackedWidgets.addWidget(self.stack3)
         self.StackedWidgets.addWidget(self.stack4)
+        self.StackedWidgets.addWidget(self.stack5)
 
     def MenuUI(self):
         self.stack1.setFixedSize(800, 620)
@@ -43,7 +48,7 @@ class UI(QtWidgets.QWidget):
 
         self.btn = QPushButton(self.stack1)
         self.btn1 = QPushButton(self.stack1)
-        self.btn2 = QPushButton(self.stack1)
+        self.btn2 = QPushButton(self.stack4)
         self.btn3 = QPushButton(self.stack1)
 
         self.btn.setText("Singleplayer")

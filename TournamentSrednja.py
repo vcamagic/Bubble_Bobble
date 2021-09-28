@@ -1,8 +1,11 @@
+import variables
 from Tournament import Tournament
 import sys
 from multiprocessing import Process
 from multiprocessing import Queue
 from PyQt5.QtWidgets import QApplication
+
+
 
 class TournamentSrednja(Tournament):
     w = ""
@@ -12,14 +15,13 @@ class TournamentSrednja(Tournament):
         super().__init__(queue, num, player1_input, player2_input)
 
     def readWinner(self):
-        f = open('winner.txt', 'r')
+        f = open('pobednik.txt', 'r')
         self.w = f.read()
         return self.w
 
     def checkEnd(self):
         self.queue.put(self.readWinner())
         self.queue.close()
-
 
 def start_tournament(player1_input, player2_input, player3_input, player4_input):
 
