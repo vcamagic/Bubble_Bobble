@@ -193,15 +193,15 @@ class Labels:
 
     def resetAll2(self):
         self.points = 0
-        self.lives2 = 3
+        self.lives = 3
         self.level = 1
         self.label_2.setNum(self.points)
         self.label_4.setNum(self.lives)
         self.label_6.setNum(self.level)
         self.points2 = 0
         self.lives2 = 3
-        self.label_8.setNum(self.points2)
-        self.label_10.setNum(self.lives2)
+        self.label_8.setNum(self.points)
+        self.label_10.setNum(self.lives)
 
     def changeScore(self, pts):
         self.points = pts

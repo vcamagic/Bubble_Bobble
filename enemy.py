@@ -114,9 +114,11 @@ class Enemy(QLabel):
             if variables.lives == 0 and variables.lives2 == 0:
                 variables.gameOver = True
 #1
-            if ((variables.currPos[self.koji][0] - 50 < variables.x and variables.currPos[self.koji][0] + 50 > variables.x) and
-                (variables.currPos[self.koji][1] - 50 < variables.y and variables.currPos[self.koji][1] + 50 > variables.y) and
-                 variables.Collected[self.koji] == False):
+            if ((variables.currPos[self.koji][0] - 50 < variables.x
+                 and variables.currPos[self.koji][0] + 50 > variables.x)
+                and (variables.currPos[self.koji][1] - 50 < variables.y
+                 and variables.currPos[self.koji][1] + 50 > variables.y)
+                and variables.Collected[self.koji] == False):
                 variables.Collected[self.koji] = True
                 variables.collectedEnemy += 1
                 variables.points += 1
@@ -208,8 +210,8 @@ class Enemy(QLabel):
                 self.setVisible(True)
                 variables.x = 370
                 variables.y = 552
-                variables.x = 540
-                variables.y = 552
+                variables.x2 = 540
+                variables.y2 = 552
                 if variables.lives != 0:
                     variables.charDead = False
                 if variables.lives2 != 0:
