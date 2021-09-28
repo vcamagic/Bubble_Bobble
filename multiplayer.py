@@ -87,10 +87,18 @@ class MultiPlayer(QWidget):
         while True:
             if variables.gameMultiLive == True:
                 self.labele.changeScore2(variables.points2)
+                if variables.reset == True:
+                    self.labele.resetAll2()
+                    variables.reset = False
+                    variables.points2 = 0
                 if variables.takeLife2:
                     self.labele.changeLives2()
                     if (variables.lives == 0 and variables.lives2 == 0):
                         variables.gameOver = True
                     variables.takeLife2 = False
                     variables.lives2 -= 1
+                if variables.increaseLevel:
+                    self.labele.changeLevel()
+                    variables.increaseLevel = False
+                    variables.level += 1
             time.sleep(0.3)
